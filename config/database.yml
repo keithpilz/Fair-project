@@ -7,10 +7,10 @@ default: &default
   password: <%= ENV['POSTGRES_PASSWORD'] %>
 development:
   <<: *default
-  database: your_dev_db_name
+  database: fair_project_dev_db
 test:
   <<: *default
-  database: your_test_db_name
+  database: fair_project_test_db
 production:
   <<: *default
-  database: your_production_db_name
+  database: fair_project_prod_db
