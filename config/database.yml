@@ -2,15 +2,15 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: db
-  port: 5432
   username: postgres
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  password:
+  pool: 5
+
 development:
   <<: *default
-  database: fair_project_dev_db
+  database: fair-project_development
+
+
 test:
   <<: *default
-  database: fair_project_test_db
-production:
-  <<: *default
-  database: fair_project_prod_db
+  database: fair-project_test
