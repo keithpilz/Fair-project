@@ -13,8 +13,21 @@ class UsersController < ApplicationController
     redirect_to subscribe_path
   end
 
+  def admin_login
+    @user = User.new
+  end
+
+  def admin_authenticate
+    @user = User.authenticate user_params
+    if @user
+      p @user
+    else
+      p "this was correct"
+    end
+  end
+
   private
   def user_params
-    params.require(:user).permit(:user_email_address)
+    params.require(:user).permit(:user_email_address, :encrypted_password)
   end
 end
