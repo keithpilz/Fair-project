@@ -1,19 +1,20 @@
 class UsersController < ApplicationController
   def new
-    p flash
     @user = User.new
-    p User.all
   end
 
   def create
-    if user = User.create(user_params)
+    @user = User.new(user_params)
+    if @user.save
       flash[:success] = 'User has subscribed!'
+    else
+      flash[:error] = 'This email address is already subscribed'
     end
     redirect_to subscribe_path
   end
 
   private
   def user_params
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:user_email_address)
   end
 end
