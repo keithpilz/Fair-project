@@ -17,6 +17,6 @@ class User < ApplicationRecord
 
   def self.authenticate(params)
     user = User.find_by(email_address: params[:email_address])
-    return user if user && user.password = params[:encrypted_password]
+    return user if user && user.password = params[:password_hash]
   end
 end
