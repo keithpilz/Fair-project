@@ -1,8 +1,8 @@
   <%= form_for @user, url: {action: 'admin_authenticate'} do |f| %>
     <%= f.label :user_email_address, 'Admin email' %>
     <%= f.text_field :user_email_address %>
-    <%= f.label :encrypted_password, 'Password' %>
-    <%= f.password_field :encrypted_password %>
+    <%= f.label :password_hash, 'Password' %>
+    <%= f.password_field :password_hash %>
     <%= f.submit 'Login Admin' %>
     <% if flash[:error] %>
       <p> This email address is already subscribed!</p>

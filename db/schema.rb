@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20171211224717) do
     t.boolean  "is_admin",           default: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.string   "encrypted_password"
+    t.string   "password_hash"
   end
 
 end

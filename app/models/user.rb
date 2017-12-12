@@ -7,12 +7,12 @@ class User < ApplicationRecord
   validates :user_email_address, uniqueness: true
 
   def password
-    @password ||= BCrypt::Password.new(encrypted_password)
+    @password ||= BCrypt::Password.new(password)
   end
 
   def password=(new_password)
     @password = BCrypt::Password.create(new_password)
-    self.encrypted_password = @password
+    self.password_hash = @password
   end
 
   def self.authenticate(params)
