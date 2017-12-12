@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   post '/admin', to: 'users#admin_authenticate'
   get '/admin/dashboard', to: 'emails#index'
 
+  post '/emails', to: 'emails#create'
+
 end
