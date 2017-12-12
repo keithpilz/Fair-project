@@ -18,8 +18,8 @@ class UsersController < ApplicationController
   end
 
   def admin_authenticate
-    @user = User.authenticate user_params
-    if @user
+    @user = User.authenticate(user_params)
+    if @user && @user.is_admin
       p @user
     else
       p "this was correct"
@@ -28,6 +28,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:user_email_address, :encrypted_password)
+    params.require(:user).permit(:user_email_address, :password_hash)
   end
 end
