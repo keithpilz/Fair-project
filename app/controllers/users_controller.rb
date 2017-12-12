@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = 'User has subscribed!'
+      UserSubscribed.subscription_email(@user.id).deliver
     else
       flash[:error] = 'This email address is already subscribed'
     end
@@ -18,6 +19,7 @@ class UsersController < ApplicationController
   end
 
   def admin_authenticate
+    session[:current_user_id] = nil
     @user = User.authenticate(user_params)
     if @user && @user.is_admin
       session[:current_user_id] = @user.id
