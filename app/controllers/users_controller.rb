@@ -20,10 +20,11 @@ class UsersController < ApplicationController
   def admin_authenticate
     @user = User.authenticate(user_params)
     if @user && @user.is_admin
-      p "sup"
+      session[:current_user_id] = @user.id
+      redirect_to admin_dashboard_path
     else
       flash[:error] = 'You aint no admin'
-      redirect_to admin_login
+      redirect_to admin_path
     end
   end
 

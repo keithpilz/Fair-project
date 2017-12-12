@@ -5,6 +5,6 @@
     <%= f.password_field :password_hash %>
     <%= f.submit 'Login Admin' %>
     <% if flash[:error] %>
-      <p>Yo, this for admin access</p>
+      <p><%= flash[:error] %></p>
     <% end %>
   <% end %>
