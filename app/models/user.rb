@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :email_statuses
   has_many :emails, through: :email_statuses
 
-  validates :user_email_address, uniqueness: true
+  validates :email_address, uniqueness: true
 
   def password
     @password ||= BCrypt::Password.new(password)
@@ -16,7 +16,7 @@ class User < ApplicationRecord
   end
 
   def self.authenticate(params)
-    user = User.find_by(user_email_address: params[:user_email_address])
+    user = User.find_by(email_address: params[:email_address])
     return user if user && user.password = params[:encrypted_password]
   end
 end

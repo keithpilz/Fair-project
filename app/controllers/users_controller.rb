@@ -20,14 +20,15 @@ class UsersController < ApplicationController
   def admin_authenticate
     @user = User.authenticate(user_params)
     if @user && @user.is_admin
-      p @user
+      p "sup"
     else
-      p "this was correct"
+      flash[:error] = 'You aint no admin'
+      redirect_to admin_login
     end
   end
 
   private
   def user_params
-    params.require(:user).permit(:user_email_address, :password_hash)
+    params.require(:user).permit(:email_address, :password_hash)
   end
 end
