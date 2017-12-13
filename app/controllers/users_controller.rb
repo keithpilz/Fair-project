@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = 'User has subscribed!'
-      UserSubscribed.subscription_email(@user.id).deliver
+      UserSubscribedMailer.subscription_email(@user.id).deliver
     else
       flash[:error] = 'This email address is already subscribed'
     end
