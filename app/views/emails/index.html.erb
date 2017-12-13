@@ -1,0 +1,16 @@
+<%= form_for @email, url: {action: 'create'} do |f| %>
+  <%= f.label :subject, 'Subject' %>
+  <%= f.text_field :subject %>
+  <%= f.label :body, 'Body' %>
+  <%= text_area_tag :body %>
+  <%= f.submit 'Create email!' %>
+<% end %>
+
+<% @emails.each do |email| %>
+  <p>Title:</p>
+  <p> <%= email.subject %> </p>
+  <p>Body:</p>
+  <p> <%= email.body %> </p>
+  <p> Published? </p>
+  <p> <%= email.is_published ? 'This has been published' : 'This is unpublished' %>
+<% end %>

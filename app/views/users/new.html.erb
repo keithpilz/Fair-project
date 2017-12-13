@@ -3,7 +3,7 @@
 <% if !flash[:success] %>
 
   <%= form_for @user, url: {action: 'create'} do |f| %>
-    <%= f.text_field :user_email_address %>
+    <%= f.text_field :email_address %>
     <%= f.submit 'Subscribe!' %>
     <% if flash[:error] %>
       <p> This email address is already subscribed!</p>

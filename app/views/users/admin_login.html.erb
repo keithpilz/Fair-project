@@ -1,0 +1,10 @@
+  <%= form_for @user, url: {action: 'admin_authenticate'} do |f| %>
+    <%= f.label :email_address, 'Admin email' %>
+    <%= f.text_field :email_address %>
+    <%= f.label :password_hash, 'Password' %>
+    <%= f.password_field :password_hash %>
+    <%= f.submit 'Login Admin' %>
+    <% if flash[:error] %>
+      <p><%= flash[:error] %></p>
+    <% end %>
+  <% end %>
