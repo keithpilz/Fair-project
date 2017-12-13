@@ -37,6 +37,10 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
+  # Log action_mailer errors
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :multi_smtp
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
