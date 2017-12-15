@@ -9,7 +9,7 @@ module FailoverSMTP
     @smtp_settings_array
   end
 
-  class Mail < Mail::SMTP
+  class Mail < ::Mail::SMTP
     def deliver!(message)
       smtp_settings_array.each_with_index do |smtp_settings, index|
         self.settings = settings.merge(smtp_settings)
