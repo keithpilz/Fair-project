@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   post '/admin', to: 'users#admin_authenticate'
   get '/admin/dashboard', to: 'emails#index'
 
-  post '/emails', to: 'emails#create'
+  resources :emails, only: [:create, :edit, :update, :destroy]
+
+  put '/admin/:id/publish', to: 'emails#publish', as: :publish
+
+  post '/admin/send_mail', to: 'emails#send_mail', as: :send_mail
 
 end

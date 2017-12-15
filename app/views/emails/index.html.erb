@@ -1,16 +1,44 @@
-<%= form_for @email, url: {action: 'create'} do |f| %>
-  <%= f.label :subject, 'Subject' %>
-  <%= f.text_field :subject %>
-  <%= f.label :body, 'Body' %>
-  <%= text_area_tag :body %>
-  <%= f.submit 'Create email!' %>
-<% end %>
+<h1 class='email-heading'>CREATE AN EMAIL!!! LOL</h1>
+<div class='email-container'>
+  <%= form_for @email, url: {action: 'create'} do |f| %>
+    <%= f.label :subject, 'Subject', :class => 'block email-labels' %>
+    <%= f.text_field :subject, :class => 'block email-form-input-width' %>
+    <%= f.label :body, 'Body', :class => 'block email-labels' %>
+    <%= f.text_area :body, :class => 'block email-form-input-width email-form-input-height' %>
+    <%= f.submit 'Create email!', :class => 'block email-labels' %>
+  <% end %>
+  <% if flash[:error] %>
+    <p > <%= flash[:error] %> </p>
+  <% elsif flash[:success] %>
+    <p > <%= flash[:success] %> </p>
+  <% end %>
+</div>
+<div class='email-container'>
+  <%=link_to 'SEND THE LATEST EMAIL', send_mail_path, method: 'post', :data => {:confirm => 'ARE YOU SURE YOU WANNA SEND THIS REALLY THOUGHTFUL EMAIL'} %>
+</div>
 
-<% @emails.each do |email| %>
-  <p>Title:</p>
-  <p> <%= email.subject %> </p>
-  <p>Body:</p>
-  <p> <%= email.body %> </p>
-  <p> Published? </p>
-  <p> <%= email.is_published ? 'This has been published' : 'This is unpublished' %>
-<% end %>
+
+<table class='email-container'>
+  <tr>
+    <th class='th-align th-spacing'>Title</th>
+    <th class='th-align th-body-spacing'>Body</th>
+    <th class='th-align th-spacing'>Published?</th>
+    <th class='th-align th-spacing'>Date updated. Pretend it's your time zone though</th>
+    <th class='th-align th-spacing'>Edit</th>
+    <th class='th-align th-spacing'>Delete</th>
+  </tr>
+  <% @emails.each do |email| %>
+    <tr>
+      <td> <%= email.subject %> </td>
+      <td> <%= email.body %> </td>
+      <% if email.is_published %>
+        <td>Yes!</td>
+      <% else %>
+        <td><%= link_to 'No. Publish it!', publish_path(email), method: 'put' %></td>
+      <% end %>
+      <td> <%= email.updated_at.strftime('%b %d, \'%y at %I:%M%p') %> </td>
+      <td> <%= link_to 'Edit', edit_email_path(email) %></td>
+      <td> <%= link_to 'Delete', email, method: 'delete', :data => {:confirm => 'Are you sure?'} %></td>
+    </tr>
+  <% end %>
+</table>

@@ -27,8 +27,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Email services
-gem 'sendgrid-ruby'
+#Pry
+gem 'pry-remote'
+
 
 # Dot env
 gem 'dotenv-rails'

@@ -1,0 +1,14 @@
+<h1 class='email-heading'>EDIT AN EMAIL!!! LOL</h1>
+<div class='email-container'>
+  <%= form_for @email, url: {action: 'update'} do |f| %>
+      <%= f.label :subject, 'Subject', :class => 'block email-labels' %>
+      <%= f.text_field :subject, :class => 'block email-form-input-width' %>
+      <%= f.label :body, 'Body', :class => 'block email-labels' %>
+      <%= f.text_area :body, :class => 'block email-form-input-width email-form-input-height' %>
+      <%= f.submit 'Edit email!', :class => 'block email-labels' %>
+    <% end %>
+    <% if flash[:error] %>
+      <p > <%= flash[:error] %> </p>
+    <% end %>
+
+</div>

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       flash[:success] = 'User has subscribed!'
       UserSubscribedMailer.subscription_email(@user.id).deliver
     else
-      flash[:error] = 'This email address is already subscribed'
+      flash[:error] = @user.errors.full_messages
     end
     redirect_to subscribe_path
   end
