@@ -29,6 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Email services
 gem 'sendgrid-ruby'
+#Multi smtp
+gem "multi_smtp"
 
 # Dot env
 gem 'dotenv-rails'
