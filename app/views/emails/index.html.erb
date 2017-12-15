@@ -7,12 +7,15 @@
     <%= f.text_area :body, :class => 'block email-form-input-width email-form-input-height' %>
     <%= f.submit 'Create email!', :class => 'block email-labels' %>
   <% end %>
-  <% if @errors %>
-    <p > <%= @errors %> </p>
+  <% if flash[:error] %>
+    <p > <%= flash[:error] %> </p>
+  <% elsif flash[:success] %>
+    <p > <%= flash[:success] %> </p>
   <% end %>
-
 </div>
-
+<div class='email-container'>
+  <%=link_to 'SEND THE LATEST EMAIL', send_mail_path, method: 'post', :data => {:confirm => 'ARE YOU SURE YOU WANNA SEND THIS REALLY THOUGHTFUL EMAIL'} %>
+</div>
 
 
 <table class='email-container'>
@@ -20,6 +23,7 @@
     <th class='th-align th-spacing'>Title</th>
     <th class='th-align th-body-spacing'>Body</th>
     <th class='th-align th-spacing'>Published?</th>
+    <th class='th-align th-spacing'>Date updated. Pretend it's your time zone though</th>
     <th class='th-align th-spacing'>Edit</th>
     <th class='th-align th-spacing'>Delete</th>
   </tr>
@@ -30,10 +34,11 @@
       <% if email.is_published %>
         <td>Yes!</td>
       <% else %>
-        <td><%= link_to 'No. Publish it!', publish_path(email) %></td>
+        <td><%= link_to 'No. Publish it!', publish_path(email), method: 'put' %></td>
       <% end %>
+      <td> <%= email.updated_at.strftime('%b %d, \'%y at %I:%M%p') %> </td>
       <td> <%= link_to 'Edit', edit_email_path(email) %></td>
-      <td> <%= link_to 'Delete', email, method: 'delete' %></td>
+      <td> <%= link_to 'Delete', email, method: 'delete', :data => {:confirm => 'Are you sure?'} %></td>
     </tr>
   <% end %>
 </table>
