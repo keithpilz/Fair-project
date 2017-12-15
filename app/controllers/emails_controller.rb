@@ -46,6 +46,7 @@ class EmailsController < ApplicationController
   def send_mail
     user_ids = User.subscribed_users
     SubscriberMostRecentMailer.send_subscriber_emails(user_ids)
+    redirect_back(fallback_location: admin_dashboard_path)
   end
 
   private
