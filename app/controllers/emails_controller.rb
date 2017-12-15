@@ -4,11 +4,6 @@ class EmailsController < ApplicationController
   def index
     @email = Email.new
     @emails = Email.all
-    if flash[:error]
-      @errors = flash[:error]
-    elsif flash[:success]
-      @success = flash[:success]
-    end
   end
 
   def create
@@ -19,6 +14,38 @@ class EmailsController < ApplicationController
       flash[:error] = email.errors.full_messages
     end
     redirect_to admin_dashboard_path
+  end
+
+  def edit
+    @email = Email.find(params[:id])
+  end
+
+  def update
+    @email = Email.find(params[:id])
+    if @email.update_attributes(email_params)
+      flash[:success] = 'Email successfully edited!'
+      redirect_to admin_dashboard_path
+    else
+      flash[:error] = @email.errors.full_messages
+      redirect_back(fallback_location: edit_email_path)
+    end
+  end
+
+  def destroy
+    email = Email.find(params[:id])
+    email.destroy
+    redirect_back(fallback_location: admin_dashboard_path)
+  end
+
+  def publish
+    email = Email.find(params[:id])
+    email.update_attribute(:is_published, true)
+    redirect_back(fallback_location: admin_dashboard_path)
+  end
+
+  def send_mail
+    user_ids = User.subscribed_users
+    SubscriberMostRecentMailer.send_subscriber_emails(user_ids)
   end
 
   private

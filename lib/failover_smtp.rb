@@ -26,7 +26,7 @@ module FailoverSMTP
     end
 
     def smtp_settings_array
-      @smtp_settings_array || FailoverSMTP.smtp_settings_array
+      @smtp_settings_array || ::FailoverSMTP.smtp_settings_array
     end
   end
 end

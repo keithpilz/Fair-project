@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 
   put '/admin/:id/publish', to: 'emails#publish', as: :publish
 
+  post '/admin/send_mail', to: 'emails#send_mail', as: :send_mail
+
 end
