@@ -3,8 +3,9 @@ require 'bcrypt'
 class User < ApplicationRecord
   has_many :email_statuses
   has_many :emails, through: :email_statuses
+  scope :subscribed_users, -> { where(is_subscribed: true).ids }
 
-  validates :email_address, uniqueness: true
+  validates :email_address, uniqueness: true, presence: true
 
   def password
     @password ||= BCrypt::Password.new(password)

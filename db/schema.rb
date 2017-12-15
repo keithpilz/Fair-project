@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20171212003625) do
   end
 
   create_table "emails", force: :cascade do |t|
-    t.string   "subject",                      null: false
-    t.text     "body",                         null: false
+    t.string   "subject"
+    t.text     "body"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.boolean  "is_published", default: false
