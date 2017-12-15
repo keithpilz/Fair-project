@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 #Pry
 gem 'pry-remote'
 
+
 # Dot env
 gem 'dotenv-rails'
 
