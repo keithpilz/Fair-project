@@ -39,7 +39,7 @@ Rails.application.configure do
 
   # Log action_mailer errors
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :multi_smtp
+  config.action_mailer.delivery_method = :failover_smtp
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
