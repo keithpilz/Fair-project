@@ -1,17 +1,16 @@
 <div class='subscribe-container'>
-  <h1>Enter your email to receive good emails</h1>
+  <h1>Enter your email to subscribe to really great emails!</h1>
 
   <% if !flash[:success] %>
-
-  <%= form_for @user, url: {action: 'create'} do |f| %>
-    <%= f.text_field :email_address %>
-    <%= f.submit 'Subscribe!' %>
-    <% if flash[:error] %>
-      <p> <%= flash[:error] %> </p>
+    <%= form_for @user, url: {action: 'create'} do |f| %>
+      <%= f.text_field :email_address %>
+      <%= f.submit 'Subscribe!' %>
+      <% if flash[:error] %>
+        <p> <%= flash[:error] %> </p>
+      <% end %>
     <% end %>
-  <% end %>
-
   <% else %>
     <p>You have now subscribed to the best email subscription of all time!</p>
   <% end%>
+
 </div>
