@@ -32,20 +32,31 @@ describe FailoverSMTP::Mail, 'deliver' do
       },
       {
         :user_name => 'test',
-        :password  => 'testtest',
+        :password  => 'secondtest',
         :domain    => 'localhost:3000',
         :authentication => :plain,
-        :address => 'smtp.amazaon_ses.com'
+        :address => 'smtp.amazon_ses.com'
       }
     ]
   }
 
-  it 'can deliver emails' do
-    allow_any_instance_of(Net::SMTP).to receive(:start).and_return(true)
-    # allow_any_instance_of(Net::SMTP).to receive(:start).with(smtp_settings_array[0]).and_return(true)
-    # allow(Net::SMTP).to receive(:start).with(smtp_settings_array[1]).and_return(true)
+  it 'wont deliver emails if error is raised twice' do
+    allow_any_instance_of(Net::SMTP).to receive(:start).and_raise(Net::SMTPFatalError)
 
-    p FailoverSMTP::Mail.new({}).deliver!(mail)
-    # expect(FailoverSMTP::Mail.new({}).deliver!(mail)).to_not raise(Net::SMTPFatalError)
+    expect{ FailoverSMTP::Mail.new({}).deliver!(mail) }.to raise_error(Net::SMTPFatalError)
+  end
+
+  it 'wont raise error if only first smtp settings fail' do
+    allow_any_instance_of(Net::SMTP).to receive(:start).with("localhost:3000", "test", "testtest", :plain).and_raise(Net::SMTPFatalError)
+    allow_any_instance_of(Net::SMTP).to receive(:start).with("localhost:3000", "test", "secondtest", :plain).and_return(true)
+
+    expect{ FailoverSMTP::Mail.new({}).deliver!(mail) }.to_not raise_error
+  end
+
+  it 'wont raise error if second smtp settings are invalid' do
+    allow_any_instance_of(Net::SMTP).to receive(:start).with("localhost:3000", "test", "testtest", :plain).and_return(true)
+    allow_any_instance_of(Net::SMTP).to receive(:start).with("localhost:3000", "test", "secondtest", :plain).and_raise(Net::SMTPFatalError)
+
+    expect{ FailoverSMTP::Mail.new({}).deliver!(mail) }.to_not raise_error
   end
 end
